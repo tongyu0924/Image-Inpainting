@@ -185,9 +185,6 @@ def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, masks_fn):
                 plt.axis("off")
                 plt.show()
 
-                plt.imshow(data[0].detach().permute(1, 2, 0))
-                plt.show()
-
 
 global_d = GlobalDiscriminator(im_channels=3).to(device)
 local_d = LocalDiscriminator(im_channels=3, region_size=32).to(device)
