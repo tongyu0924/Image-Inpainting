@@ -4,6 +4,9 @@ paper : http://iizuka.cs.tsukuba.ac.jp/projects/completion/data/completion_sig20
 ### dataset : CIFAR-10
 
 ###  Architecture :
+![image](https://github.com/tongyu0924/Image-Inpainting/assets/119610311/0f17a889-5314-409e-b7fa-2cc4105be913)
+
+
 #### image completion network :
 ![image](https://github.com/tongyu0924/Image-Inpainting/assets/119610311/87c8db23-ab9f-4886-845c-0fce9e18483a)
 
