@@ -24,7 +24,7 @@ test_size = int(len(dataset) * test_split)
 train, val, test = torch.utils.data.random_split(dataset, (train_size, val_size, test_size))
 print(len(train), len(val), len(test))
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def create_mask(N, im_h, im_w, hole_h, hole_w, same_size=True):
     startY, startX = np.random.randint(0, im_h - hole_h, N), np.random.randint(0, im_w - hole_w, N)
