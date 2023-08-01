@@ -75,11 +75,11 @@ def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, masks_fn):
             d.train()
 
             N = batch.shape[0]
-            batch = batch.to(device)
+            batch = batch
 
             masks_g, bounds_g = masks_fn(N)
 
-            masks_g = masks_g.to(device)
+            masks_g = masks_g
 
             batch_masked = batch * (1 - masks_g)
             batch_with_masks = torch.cat((batch_masked, masks_g[:, :1]), dim=1)
@@ -112,7 +112,7 @@ def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, masks_fn):
                 d_fake = d(inpainted.detach(), bounds_g)
 
                 masks_d, bounds_d = masks_fn(N)
-                masks_d = masks_d.to(device)
+                masks_d = masks_d
                 real = torch.cat((batch.clone(), masks_d[:, :1]), dim=1)
                 d_real = d(real, bounds_d)
 
@@ -150,7 +150,7 @@ def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, masks_fn):
                 i += 1
 
                 N = data.shape[0]
-                data = data.to(device)
+                data = data
 
                 masks_g, bounds_g = masks_fn(N)
 
@@ -175,11 +175,11 @@ def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, masks_fn):
                 plt.show()
 
 
-global_d = GlobalDiscriminator(im_channels=3).to(device)
-local_d = LocalDiscriminator(im_channels=3, region_size=32).to(device)
-discriminator = Discriminator(local_d=local_d, global_d=global_d).to(device)
+global_d = GlobalDiscriminator(im_channels=3)
+local_d = LocalDiscriminator(im_channels=3, region_size=32)
+discriminator = Discriminator(local_d=local_d, global_d=global_d)
 
-generator = Generator(im_channels=3).to(device)
+generator = Generator(im_channels=3)
 
 train_params = {
     "w": 0.0005,
