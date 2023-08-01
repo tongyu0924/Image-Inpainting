@@ -39,8 +39,6 @@ def create_mask(N, im_h, im_w, hole_h, hole_w, same_size=True):
 
 print(create_mask(2, 3, 3, 1, 1))
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 
 class Discriminator(nn.Module):
     def __init__(self, local_d, global_d):
