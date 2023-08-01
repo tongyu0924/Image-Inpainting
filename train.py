@@ -56,7 +56,7 @@ class Discriminator(nn.Module):
         return out
 
 
-def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, masks_fn):
+def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, createMask):
     train_loader = torch.utils.data.DataLoader(train, batch_size=params["batch_size"], num_workers=0, pin_memory=0)
     val_loader = torch.utils.data.DataLoader(val, params["val_batch_size"], shuffle=True, pin_memory=True)
 
@@ -75,7 +75,7 @@ def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, masks_fn):
             N = batch.shape[0]
             batch = batch
 
-            masks_g, bounds_g = masks_fn(N)
+            masks_g, bounds_g = createMask(N)
 
             masks_g = masks_g
 
@@ -109,7 +109,7 @@ def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, masks_fn):
                 inpainted = torch.cat((inpainted, masks_g[:, :1]), dim=1)
                 d_fake = d(inpainted.detach(), bounds_g)
 
-                masks_d, bounds_d = masks_fn(N)
+                masks_d, bounds_d = createMask(N)
                 masks_d = masks_d
                 real = torch.cat((batch.clone(), masks_d[:, :1]), dim=1)
                 d_real = d(real, bounds_d)
@@ -150,7 +150,7 @@ def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, masks_fn):
                 N = data.shape[0]
                 data = data
 
-                masks_g, bounds_g = masks_fn(N)
+                masks_g, bounds_g = createMask(N)
 
                 data_masked = data.clone() * (1 - masks_g)
                 data_with_masks = torch.cat((data_masked, masks_g[:, :1]), dim=1)
