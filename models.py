@@ -117,7 +117,7 @@ class LocalDiscriminator(nn.Module):
         )
 
     def forward(self, X, mask_bounds):
-        regions = self.local_regions(X, mask_bounds).to(device)
+        regions = self.local_regions(X, mask_bounds)
         out = self.net(regions)
 
         return out
