@@ -165,7 +165,6 @@ def train_gan(g, d, train, val, g_optimizer, d_optimizer, params, masks_fn):
                     y1, y2, x1, x2 = bounds_g[i]
                     data[i, :, y1:y2 + 1, x1:x2 + 1] = fake[i, :, y1:y2 + 1, x1:x2 + 1]
 
-                print(torchvision.utils.make_grid(data[:8], nrow=4, normalize=True).shape)
                 grid = torchvision.utils.make_grid(data[:8], nrow=4, normalize=True).permute(1, 2, 0).numpy()
                 plt.imshow(grid)
                 plt.axis("off")
