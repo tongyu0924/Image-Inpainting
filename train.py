@@ -26,17 +26,6 @@ print(len(train), len(val), len(test))
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-
-def imshow(tensor):
-    if len(tensor.shape) == 4:
-        tensor = tensor[0]
-
-    plt.imshow(tensor.cpu()[:3].permute(1, 2, 0))
-
-
-imshow(train[1000][0])
-
-
 def create_mask(N, im_h, im_w, hole_h, hole_w, same_size=True):
     startY, startX = np.random.randint(0, im_h - hole_h, N), np.random.randint(0, im_w - hole_w, N)
     bounds = [(startY[i], startY[i] + hole_h, startX[i], startX[i] + hole_w) for i in range(N)]
